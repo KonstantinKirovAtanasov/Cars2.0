@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="Cars2._0.Views.AddCarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Cars2._0.Views"
+             xmlns:vm="clr-namespace:Cars2._0.ViewModels"
+             xmlns:m="clr-namespace:Cars2._0.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:AddCarViewModel></vm:AddCarViewModel>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:TradeMark}" x:Key="TradeMark">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="m:TradeMark"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:Model}" x:Key="Model">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="m:Model"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:GearBox}" x:Key="GearBox">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="m:GearBox"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type m:Fuel}" x:Key="Fuel">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="m:Fuel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Margin" Value="5,10"></Setter>
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="TextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Margin" Value="5,10"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+            <Setter Property="IsManipulationEnabled" Value="False"></Setter>
+        </Style>
+        <Style x:Key="ComboboxStype" TargetType="ComboBox">
+            <Setter Property="IsEditable" Value="False"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Margin" Value="5,10"></Setter>
+        </Style>
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Stretch" Value="Fill"></Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="15,5"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Command" Value="{Binding}"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="Заглавие:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBox Style="{StaticResource TextBox}" Text="{Binding Path=Car.Title, Mode=OneWayToSource}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <TextBlock Text="Марка:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <ComboBox Style="{StaticResource ComboboxStype}" ItemsSource="{Binding Source={StaticResource TradeMark}, Mode=OneTime}"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <TextBlock Text="Модел:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="3">
+            <ComboBox Style="{StaticResource ComboboxStype}" ItemsSource="{Binding Source={StaticResource Model}, Mode=OneTime}"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Конски Сили:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <TextBox Style="{StaticResource TextBox}" Text="{Binding Path=Car.HorsePower, Mode=OneWayToSource}" ></TextBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2">
+            <TextBlock Text="Кубатура:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="3">
+            <TextBox Style="{StaticResource TextBox}" Text="{Binding Path=Car.Engine, Mode=OneWayToSource}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">
+            <TextBlock Text="Цвят:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <TextBox Style="{StaticResource TextBox}" Text="{Binding Path=Car.Color, Mode=OneWayToSource}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2">
+            <TextBlock Text="Пробег:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="4">
+            <TextBox Style="{StaticResource TextBox}" Text="{Binding Path=Car.MileAge, Mode=OneWayToSource}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0">
+            <TextBlock Text="Скоростна кутия:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="1">
+            <ComboBox Style="{StaticResource ComboboxStype}" ItemsSource="{Binding Source={StaticResource GearBox}, Mode=OneTime}" ></ComboBox>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="2">
+            <TextBlock Text="Гориво:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="3">
+            <ComboBox Style="{StaticResource ComboboxStype}" ItemsSource="{Binding Source={StaticResource Fuel}, Mode=OneTime}"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="0">
+            <TextBlock Text="Снимки:" Style="{StaticResource TextBlockStyle}"></TextBlock>
+            <Button Content="Качи снимки:" Style="{StaticResource ButtonStyle}" CommandParameter="Upload" Margin="10,130"></Button>
+            <TextBlock Text="(Могат да бъдат качени до 3 снимки)" Style="{StaticResource TextBlockStyle}" FontSize="10" Margin="5,175,5,90"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Image Style="{StaticResource ImageStyle}" Source="{Binding Path=Image}"></Image>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2">
+            <Image Style="{StaticResource ImageStyle}"></Image>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="3">
+            <Image Style="{StaticResource ImageStyle}"></Image>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="0">
+            <Button Content="Запази" Style="{StaticResource ButtonStyle}" CommandParameter="Save"></Button>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="1">
+            <Button Content="Разгледай" Style="{StaticResource ButtonStyle}" CommandParameter="See"></Button>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Button Content="Haзад" Style="{StaticResource ButtonStyle}" CommandParameter="Back"></Button>
+        </Grid>
+        <Grid Grid.Row="6" Grid.Column="3">
+            <Button Content="Обяви" Style="{StaticResource ButtonStyle}" CommandParameter="Show"></Button>
+        </Grid>
+    </Grid>
+</UserControl>
