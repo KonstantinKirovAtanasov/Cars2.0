@@ -14,12 +14,15 @@ namespace Cars2._0.ViewModels
         private ObservableCollection<CarEntity> cars;
         private CarEntity selectedCar;
 
+        public string TitleFilter { get; set; }
+
         public CarEntity SelectedCar
         {
             get { return selectedCar; }
             set
             {
-                if (selectedCar.ID != value.ID);
+                if (selectedCar.ID != value.ID)
+                    ;
                 else
                     selectedCar = value;
             }
@@ -27,11 +30,13 @@ namespace Cars2._0.ViewModels
 
         public ObservableCollection<CarEntity> Cars
         {
-            get { return cars; }
+            get { return cars;
+            }
             private set {; }
         }
         public ListedCarsViewModel()
         {
+            selectedCar = new CarEntity();
             cars = new ObservableCollection<CarEntity>();
             foreach (var c in DatabaseExecutes.GetCarEntities())
                 cars.Add(c);

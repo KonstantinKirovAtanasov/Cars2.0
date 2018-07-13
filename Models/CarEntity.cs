@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,5 +29,28 @@ namespace Cars2._0.Models
         public int Engine { get; set; }
         public string Color { get; set; }
         public int MileAge { get; set; }
+
+        public TradeMark tradeMark { get; set; }
+        public Model model { get; set; }
+        public GearBox gearBox { get; set; }
+        public Fuel fuel { get; set; }
+
+
+        public CarEntity() { }
+        public CarEntity(CarEntity c)
+        {
+            this.Title = c.Title;
+            this.PictureOne = c.PictureOne;
+            this.PictureTwo = c.PictureTwo;
+            this.PictureTree = c.PictureTree;
+            this.HorsePower = c.HorsePower;
+            this.Engine = c.Engine;
+            this.Color = c.Color;
+            this.MileAge = c.MileAge;
+            this.tradeMark = c.tradeMark;
+            this.model = c.model;
+            this.gearBox = c.gearBox;
+            this.fuel = c.fuel;
+        }
     }
 }

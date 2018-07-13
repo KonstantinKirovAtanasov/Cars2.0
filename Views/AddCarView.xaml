@@ -136,13 +136,13 @@
             <TextBlock Text="(Могат да бъдат качени до 3 снимки)" Style="{StaticResource TextBlockStyle}" FontSize="10" Margin="5,175,5,90"></TextBlock>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="1">
-            <Image Style="{StaticResource ImageStyle}" Source="{Binding Path=Image}"></Image>
+            <Image Style="{StaticResource ImageStyle}" Source="{Binding Path=ImageOne}"></Image>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="2">
-            <Image Style="{StaticResource ImageStyle}"></Image>
+            <Image Style="{StaticResource ImageStyle}" Source="{Binding Path=ImageTwo}"></Image>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="3">
-            <Image Style="{StaticResource ImageStyle}"></Image>
+            <Image Style="{StaticResource ImageStyle}"  Source="{Binding Path=ImageTree}"></Image>
         </Grid>
         <Grid Grid.Row="6" Grid.Column="0">
             <Button Content="Запази" Style="{StaticResource ButtonStyle}" CommandParameter="Save"></Button>

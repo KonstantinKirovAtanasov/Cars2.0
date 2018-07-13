@@ -6,21 +6,23 @@
         xmlns:local="clr-namespace:Cars2._0"
         xmlns:vm="clr-namespace:Cars2._0.ViewModels"
         xmlns:v="clr-namespace:Cars2._0.Views"
-        xmlns:vmn="clr-namespace:Cars2._0.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="620" Width="800">
+    <!--<Window.DataContext>
+        <vm:NavigationViewModel/>
+    </Window.DataContext>-->
     <Window.Resources>
-        <DataTemplate x:Key="nvm" DataType="{x:Type vm:NavigationViewModel}">
-            <v:AddCarView DataContext="{Binding Path=SelectedVM}"/>
+        <DataTemplate x:Key="nvm" DataType="{x:Type v:AddCarView}">
+            <v:AddCarView DataContext="{Binding}"/>
         </DataTemplate>
-        <!--<DataTemplate x:Key="lcvm" DataType="{x:Type vm:ListedCarsViewModel}">
+        <DataTemplate x:Key="lcvm" DataType="{x:Type v:ListedCarsView}">
             <v:ListedCarsView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Key="sscvm" DataType="{x:Type vm:ShowSelectedCarViewModel}">
+        <DataTemplate x:Key="sscvm" DataType="{x:Type v:ShowSeletedCarView}">
             <v:ShowSeletedCarView DataContext="{Binding}"/>
-        </DataTemplate>-->
+        </DataTemplate>
     </Window.Resources>
     <Grid>
-        <ContentControl ContentTemplate="{StaticResource ResourceKey=nvm}"></ContentControl>
+        <ContentControl ContentTemplate="{StaticResource lcvm}"></ContentControl>
     </Grid>
 </Window>

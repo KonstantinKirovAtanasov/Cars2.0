@@ -1,4 +1,5 @@
 ﻿using Cars2._0.Models;
+using Cars2._0.Views;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,36 @@ namespace Cars2._0.ViewModels
     class AddCarViewModel:BaseViewModel
     {
         private CarEntity car;
-        private BitmapImage image;
-       
+        private BitmapImage imageOne = null;
+        private BitmapImage imageTwo = null;
+        private BitmapImage imageTree = null;
 
-        public BitmapImage Image
+        public BitmapImage ImageOne
         {
-            get { return image; }
+            get { return imageOne; }
             set {
-                image = value;
-                OnPropertyChanged("Image");
+                imageOne = value;
+                OnPropertyChanged("ImageOne");
             }
         }
-
+        public BitmapImage ImageTwo
+        {
+            get { return imageTwo; }
+            set
+            {
+                imageTwo = value;
+                OnPropertyChanged("ImageTwo");
+            }
+        }
+        public BitmapImage ImageTree
+        {
+            get { return imageTree; }
+            set
+            {
+                imageTree = value;
+                OnPropertyChanged("ImageTree");
+            }
+        }
         public CarEntity Car
         {
             get
@@ -51,15 +70,15 @@ namespace Cars2._0.ViewModels
             }
             else if (parameter.Equals("See"))
             {
-                NavigationViewModel
+                
             }
             else if (parameter.Equals("Back"))
             {
-
+                
             }
             else if (parameter.Equals("Save"))
             {
-
+                DatabaseExecutes.AddCarEntity(car);
             }
         }
 
@@ -67,14 +86,35 @@ namespace Cars2._0.ViewModels
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-            dialog.InitialDirectory = @"C:\";
+            dialog.InitialDirectory = @"C:\Users\v\Desktop";
             dialog.Title = "Please select an image file upload";
 
             if (dialog.ShowDialog()!=null)
             {
-                Image = Converters.UriToBitmapImage(dialog.FileName);
-                car.PictureOne = Converters.BitmapImageToByteArray(image);
+                if (imageOne == null)
+                {
+                    ImageOne = new BitmapImage(new Uri(dialog.FileName));
+                    car.PictureOne = Converters.PathToByteArray(dialog.FileName);
+                    return;
+                }
+                else if (imageTwo == null)
+                {
+                    ImageTwo = new BitmapImage(new Uri(dialog.FileName));
+                    car.PictureTwo = Converters.PathToByteArray(dialog.FileName);
+                    return;
+                }
+                else if(imageTree == null)
+                {
+                    ImageTree = new BitmapImage(new Uri(dialog.FileName));
+                    car.PictureTree = Converters.PathToByteArray(dialog.FileName);
+                    return;
+                }
             }
         }
+        ~AddCarViewModel()
+        {
+            DatabaseExecutes.OnAppClose();
+        }
+
     }
 }
