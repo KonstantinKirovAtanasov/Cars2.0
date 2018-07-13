@@ -1,33 +1,40 @@
-﻿using System;
+﻿using Cars2._0.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Cars2._0.ViewModels
 {
+    public delegate NavigationViewModel VMChanged(BaseViewModel viewModel);
+
     public class NavigationViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Stack<BaseViewModel> selectedVM = null;
+        internal static Stack<UserControl> selectedVM = new Stack<UserControl>();
 
-        public BaseViewModel SelectedVM
+        public static UserControl SelectedVM
         {
             get
             {
-                if (selectedVM == null)
-                    selectedVM.Push(new AddCarViewModel());
-                return selectedVM.Pop();
+                if (selectedVM.Count<1)
+                {
+                    selectedVM.Push(new AddCarView());
+                    return selectedVM.Pop();
+                }
+                return selectedVM.Peek();
             }
             set
             {
-                if (value == selectedVM.Peek())
+                if (selectedVM.Count >1 && value == selectedVM.Peek())
                     ;
                 else
                 {
                     selectedVM.Push(value);
-                    OnPropertyChanged("SelectedVM");
+                    //OnPropertyChanged("SelectedVM");
                 }
             }
         }
@@ -40,5 +47,6 @@ namespace Cars2._0.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
+        //public void 
     }
 }

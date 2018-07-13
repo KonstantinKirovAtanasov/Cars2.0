@@ -9,28 +9,36 @@ namespace Cars2._0.Models
 {
     public static class DatabaseExecutes
     {
-        private static List<CarEntity> Cars = new List<CarEntity>();
+        private static HashSet<CarEntity> Cars = new HashSet<CarEntity>(new CarEntityEqualityComparer());
 
         public static void AddCarEntity(CarEntity c)
         {
-            if (Cars.Count() > 5)
+            Cars.Add(new CarEntity(c));
+            if (Cars.Count() > 3)
             {
                 using(var db = new DBContext())
                 {
-                    foreach (var car in Cars)
-                        db.Cars.Add(car);
+                    db.Cars.AddRange(Cars);
                     db.SaveChanges();
                     Cars.Clear();
                 }
             }
-            else
-                Cars.Add(c);
         }
         public static IEnumerable<CarEntity> GetCarEntities()
         {
+            Cars.Clear();
             using (var db = new DBContext())
             {
                 return db.Cars.ToList();
+            }
+        }
+        public static void OnAppClose()
+        {
+            using (var db = new DBContext())
+            {
+                db.Cars.AddRange(Cars);
+                db.SaveChanges();
+                Cars.Clear();
             }
         }
     }

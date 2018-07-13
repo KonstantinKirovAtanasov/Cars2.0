@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CarEntity.cs" />
+    <Compile Include="Models\CarEntityEqualityComparer.cs" />
     <Compile Include="Models\DatabaseExecutes.cs" />
     <Compile Include="Models\Converters.cs" />
     <Compile Include="Models\DBContext.cs" />
