@@ -9,12 +9,29 @@
     <UserControl.DataContext>
         <vm:ListedCarsViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="15,5"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Command" Value="{Binding}"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
+            <TextBlock Text="Търсене по заглавие:" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+            <TextBox                      
+                Text="{Binding Path=TitleFilter, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                MinWidth="200" FontSize="22"
+                FontWeight="Bold" VerticalAlignment="Center" 
+                HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
             <ListView
                 SelectedItem="{Binding Path=SelectedCar, Mode=OneWayToSource}"
                 ItemsSource="{Binding Path=Cars}"
@@ -28,14 +45,33 @@
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding Path=Title}" FontSize="20" FontStyle="Oblique" VerticalAlignment="Top"></TextBlock>
                                 <TextBlock Text="Двигател:" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding Path=Engine}" VerticalAlignment="Bottom" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock Text="{Binding Path=Engine}" VerticalAlignment="Bottom" FontWeight="Bold" HorizontalAlignment="Left"></TextBlock>
                                 <TextBlock Text="Пробег:"/>
-                                <TextBlock Text="{Binding Path=MileAge}" VerticalAlignment="Bottom" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock Text="{Binding Path=MileAge}" VerticalAlignment="Bottom" FontWeight="Bold" HorizontalAlignment="Left"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                    <Button Content="Качи автомобил" Style="{StaticResource ButtonStyle}"></Button>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Button Content="Назад" Style="{StaticResource ButtonStyle}"></Button>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Button Content="Избери" Style="{StaticResource ButtonStyle}"></Button>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

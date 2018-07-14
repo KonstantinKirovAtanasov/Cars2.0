@@ -9,21 +9,20 @@ using System.Windows.Controls;
 
 namespace Cars2._0.ViewModels
 {
-    public delegate NavigationViewModel VMChanged(BaseViewModel viewModel);
 
     public class NavigationViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        internal static Stack<UserControl> selectedVM = new Stack<UserControl>();
+        private static NavigationViewModel instance;
+        private Stack<BaseViewModel> selectedVM = new Stack<BaseViewModel>();
 
-        public static UserControl SelectedVM
+        public BaseViewModel SelectedVM
         {
             get
             {
                 if (selectedVM.Count<1)
                 {
-                    selectedVM.Push(new AddCarView());
-                    return selectedVM.Pop();
+                    selectedVM.Push(new ListedCarsViewModel());
                 }
                 return selectedVM.Peek();
             }
@@ -34,19 +33,23 @@ namespace Cars2._0.ViewModels
                 else
                 {
                     selectedVM.Push(value);
-                    //OnPropertyChanged("SelectedVM");
+                    OnPropertyChanged("SelectedVM");
                 }
             }
         }
-
-        public NavigationViewModel() { }
+        public static NavigationViewModel getInstance
+        {
+            get { return instance; }
+        }
+        public NavigationViewModel()
+        {
+            instance = this;
+        }
 
         public void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
-
-        //public void 
     }
 }

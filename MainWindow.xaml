@@ -3,26 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cars2._0"
         xmlns:vm="clr-namespace:Cars2._0.ViewModels"
         xmlns:v="clr-namespace:Cars2._0.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="620" Width="800">
-    <!--<Window.DataContext>
-        <vm:NavigationViewModel/>
-    </Window.DataContext>-->
+  
     <Window.Resources>
-        <DataTemplate x:Key="nvm" DataType="{x:Type v:AddCarView}">
+        <DataTemplate x:Key="nv" DataType="{x:Type v:AddCarView}">
             <v:AddCarView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Key="lcvm" DataType="{x:Type v:ListedCarsView}">
+        <DataTemplate x:Key="lcv" DataType="{x:Type v:ListedCarsView}">
             <v:ListedCarsView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Key="sscvm" DataType="{x:Type v:ShowSeletedCarView}">
+        <DataTemplate x:Key="sscv" DataType="{x:Type v:ShowSeletedCarView}">
             <v:ShowSeletedCarView DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <ContentControl ContentTemplate="{StaticResource lcvm}"></ContentControl>
+        <ContentControl>
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=SelectedVM}" Value="Cars2._0.ViewModels.ListedCarsViewModel">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource lcv}"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=SelectedVM}" Value="Cars2._0.ViewModels.AddCarViewModel">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource nv}" ></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=SelectedVM}" Value="Cars2._0.ViewModels.ShowSelectedCarViewModel">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource sscv}" ></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <ContentControl ContentTemplate="{StaticResource lcv}"/>
     </Grid>
 </Window>

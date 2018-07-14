@@ -12,9 +12,23 @@ namespace Cars2._0.ViewModels
     class ListedCarsViewModel:BaseViewModel
     {
         private ObservableCollection<CarEntity> cars;
+        private ObservableCollection<CarEntity> filteredCars;
         private CarEntity selectedCar;
+        private string titleFilter = "";
 
-        public string TitleFilter { get; set; }
+        public string TitleFilter
+        {
+            get
+            { return titleFilter; }
+            set
+            {
+                titleFilter = value;
+                filteredCars = new ObservableCollection<CarEntity>((from c in cars
+                                where c.Title.ToLower().Contains(titleFilter.ToLower())
+                                select c).ToList());
+                OnPropertyChanged("Cars");
+            }
+        }
 
         public CarEntity SelectedCar
         {
@@ -27,10 +41,13 @@ namespace Cars2._0.ViewModels
                     selectedCar = value;
             }
         }
-
         public ObservableCollection<CarEntity> Cars
         {
-            get { return cars;
+            get
+            {
+                if (titleFilter.Length >= 1)
+                    return filteredCars;
+                return cars;
             }
             private set {; }
         }
